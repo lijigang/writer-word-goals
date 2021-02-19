@@ -54,7 +54,7 @@
 
 (defun wwg/check-count-and-beep-with-message-if-finished (target-count buffer)
   "Beep if TARGET-COUNT was reached in BUFFER."
-  (let* ((total-so-far (with-current-buffer buffer (count-words (point-min) (point-max))))
+  (let* ((total-so-far (with-current-buffer buffer (how-many "[0-9A-Za-z_]+\\|[[:multibyte:]]"  (point-min) (point-max))))
          (remaining-words (- target-count total-so-far)))
     (if (<= remaining-words 0)
         (progn
@@ -93,7 +93,7 @@
   "Monitor when you achieve the target NUMBER-OF-WORDS."
   (interactive "nHow many words do you want to write for this session?")
   (let ((buffer (current-buffer))
-        (words-already-there (count-words (point-min) (point-max))))
+        (words-already-there (how-many "[0-9A-Za-z_]+\\|[[:multibyte:]]"  (point-min) (point-max))))
     (wwg/monitor-word-count-for-buffer (+ number-of-words words-already-there) buffer)))
 
 (defun wwg/set-1k-goal-current-buffer ()
